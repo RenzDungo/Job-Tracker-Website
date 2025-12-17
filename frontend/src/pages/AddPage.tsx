@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import{ Container, Card, Form, Button, Row, Col } from "react-bootstrap";
 import { useUser } from '../PageContext';
+const API_URL = import.meta.env.VITE_API_URL;
 interface AddPageProps{
     setPage: (page: string)=> void;
 }
@@ -33,7 +34,7 @@ export default function AddPage({setPage}: AddPageProps){
             setErrorMessage("Please Select a Status")
         }
         try{
-            const res = await fetch(`http://localhost:3000/api/jobapp/create/user/${userId}`, {
+            const res = await fetch(`${API_URL}/api/jobapp/create/user/${userId}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

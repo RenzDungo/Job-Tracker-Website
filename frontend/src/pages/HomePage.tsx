@@ -1,6 +1,7 @@
 import {Container, Card, Table, Dropdown, Stack, Form} from "react-bootstrap"
 import { useUser } from "../PageContext"
 import { useState, useEffect } from "react"
+const API_URL = import.meta.env.VITE_API_URL;
 interface JobApp{
     jobid: number;
     name: string,
@@ -27,7 +28,7 @@ export default function Homepage(){
     const [salary, setSalary] = useState<number|null>(null);
     async function getJobApps(userId: (string | null)){
         try{
-            const res = await fetch(`http://localhost:3000/api/jobapp/${userId}`);
+            const res = await fetch(`${API_URL}/api/jobapp/${userId}`);
             if (!res.ok){
                 throw new Error("Failed to fetch job applications")
             }
@@ -43,7 +44,7 @@ export default function Homepage(){
 
         try{
             await fetch(
-                `http://localhost:3000/api/jobapp/update/${jobAppid}/user/${userId}`,
+                `${API_URL}/api/jobapp/update/${jobAppid}/user/${userId}`,
                 {
                     method:"PUT",
                     headers:{"Content-Type":"application/json"},
@@ -70,7 +71,7 @@ export default function Homepage(){
         const order = ascending ? "ASC" : "DESC"
             try{
             const res = await fetch(
-                `http://localhost:3000/api/jobapp/${userId}?sort=${sort}&order=${order}&page=1&limit=20`
+                `${API_URL}/api/jobapp/${userId}?sort=${sort}&order=${order}&page=1&limit=20`
             );
             if (!res.ok){
                 throw new Error("Failed to Sort job applications")

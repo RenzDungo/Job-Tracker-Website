@@ -1,6 +1,7 @@
 import {Card, Container, Stack, Button, Form} from 'react-bootstrap'
 import { useUser } from '../PageContext';
 import { useState } from 'react';
+const API_URL = import.meta.env.VITE_API_URL;
 interface LoginPageProps {
     setPage: (page: string) => void;
 }
@@ -12,7 +13,7 @@ export default function LoginPage({setPage}: LoginPageProps){
     const [errormessage,setErrorMessage] =useState("")
      async function handleUserLogin(email: string, password:string){
         try{ 
-            const res = await fetch("http://localhost:3000/api/users/login", {
+            const res = await fetch(`${API_URL}/api/users/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -31,7 +32,7 @@ export default function LoginPage({setPage}: LoginPageProps){
      async function handleUserRegister(email: string, password: string) {
         try{
             const res = await
-            fetch("http://localhost:3000/api/users/create", {
+            fetch(`${API_URL}/api/users/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })

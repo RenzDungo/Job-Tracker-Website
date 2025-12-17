@@ -1,6 +1,7 @@
 import { Stack, Container, Card, Form, Row, Col, Button} from "react-bootstrap"
 import {useState } from "react"
 import { useUser } from "../PageContext"
+const API_URL = import.meta.env.VITE_API_URL;
 interface JobApp{
     jobid: number;
     name: string,
@@ -35,7 +36,7 @@ export default function AIPage({setPage}: AIProps){
         if (!jobapp?.status)
             console.log("No Status Selected")
         try{
-            const res = await fetch(`http://localhost:3000/api/jobapp/create/user/${userId}`,
+            const res = await fetch(`${API_URL}/api/jobapp/create/user/${userId}`,
                 {
                     method: "POST",
                     headers:{"Content-Type": "application/json"},
@@ -68,7 +69,7 @@ export default function AIPage({setPage}: AIProps){
     async function AIassist(jobDescription:string, jobLink:string): Promise<JobApp> {
 
             const res = await fetch (
-                `http://localhost:3000/api/ai/autocomplete`, {
+                `${API_URL}/api/ai/autocomplete`, {
                     method:"POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
