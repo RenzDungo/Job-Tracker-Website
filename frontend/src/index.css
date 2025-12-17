@@ -1,0 +1,12 @@
+/* Ensure full-height layout */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* App background */
+body {
+  background-color: #2A3439; /* replace with your color */
+}
