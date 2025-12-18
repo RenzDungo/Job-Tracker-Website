@@ -219,7 +219,7 @@ export default function Homepage(){
                         </td>
                         <td>
                             <Dropdown>
-                                <Dropdown.Toggle variant="" id="dropdown-basic">
+                                <Dropdown.Toggle variant="light" id="dropdown-basic">
                                     {jobapps.status}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
