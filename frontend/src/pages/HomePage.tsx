@@ -101,7 +101,7 @@ export default function Homepage(){
     async function handleDelete(jobAppid: number){
         try{
             const res = await fetch(
-                `${API_URL}/api/jobapp/delete/${jobAppid}/user/${userId}`,
+                `${API_URL}/api/jobapp/remove/${jobAppid}/user/${userId}`,
                 {
                     method:"DELETE",
                     headers:{"Content-Type":"application/json"}
