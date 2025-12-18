@@ -1,7 +1,8 @@
 import { Stack, Container, Card, Form, Row, Col, Button} from "react-bootstrap"
-import {useState } from "react"
+import {useEffect, useState } from "react"
 import { useUser } from "../PageContext"
 const API_URL = import.meta.env.VITE_API_URL;
+const today = new Date();
 interface JobApp{
     jobid: number;
     name: string,
@@ -86,6 +87,11 @@ export default function AIPage({setPage}: AIProps){
             setJobApp(data);
             return data;
     }
+    useEffect(() => {
+            setMonth(Number(today.getMonth() + 1)); // JS months are 0-based
+            setDay(Number(today.getDate()));
+            setYear(Number(today.getFullYear()));
+        }, []);
     return(
         <Stack>
             {isLoggedIn ? (
@@ -158,21 +164,21 @@ export default function AIPage({setPage}: AIProps){
                         <Row>
                             <Col>
                                 <Form.Control 
-                                type="number" placeholder="Month" min={1} max={12} step={1}
+                                type="number" placeholder="Month" min={1} max={12} step={1} defaultValue={String(month || "")}
                                 onChange={(e)=>setMonth(e.target.value ==="" ? null: Number(e.target.value))}
                                 >
                                 </Form.Control>
                             </Col>
                             <Col>
                                 <Form.Control
-                                 type="number" placeholder="Day" min={1} max={30} step={1}
+                                 type="number" placeholder="Day" min={1} max={30} step={1} defaultValue={String(day || "")}
                                  onChange={(e)=>setDay(e.target.value ==="" ? null: Number(e.target.value))}
                                  >
                                  </Form.Control>
                             </Col>
                             <Col xs={8}>
                                 <Form.Control 
-                                type="number" placeholder="Year" step={1} defaultValue={2025}
+                                type="number" placeholder="Year" step={1} defaultValue={String(year ||"")}
                                 onChange={(e)=>setYear(e.target.value ==="" ? null: Number(e.target.value))}
                                 >
                                 </Form.Control>
