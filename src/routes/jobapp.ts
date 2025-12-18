@@ -86,7 +86,7 @@ jobapprouter.delete("/remove/:id/user/:userid", async(req,res)=>{
         const result = await pool.query(
             `
             DELETE FROM jobapptable
-            WHERE id = $1 AND userid = $2
+            WHERE jobid = $1 AND userid = $2
             `,
             [id, userid]
         )
