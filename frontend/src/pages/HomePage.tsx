@@ -1,4 +1,4 @@
-import {Container, Card, Table, Dropdown, Stack, Form} from "react-bootstrap"
+import {Container, Card, Table, Dropdown, Stack, Form, Button} from "react-bootstrap"
 import { useUser } from "../PageContext"
 import { useState, useEffect } from "react"
 const API_URL = import.meta.env.VITE_API_URL;
@@ -98,13 +98,29 @@ export default function Homepage(){
         }
     }
 
+    async function handleDelete(jobAppid: number){
+        try{
+            const res = await fetch(
+                `${API_URL}/api/jobapp/delete/${jobAppid}/user/${userId}`,
+                {
+                    method:"DELETE",
+                    headers:{"Content-Type":"application/json"}
+                }
+            )
+            if (!res.ok){
+                throw new Error("Failed to delete job application")
+            }
+            setJobApps((prev) =>
+                prev.filter((app) => app.jobid !== jobAppid)
+            );
+        } catch (err){
+            setErrorMessage("Error trying to delete Job Application")
+        }
+    }
     useEffect(()=>{
         if (!userId){
             setErrorMessage("No User Detected, Login Required")
             return;
-        }
-        if(editingstate === true){
-            return
         }
         async function loadJobApps(){
             try{
@@ -115,7 +131,7 @@ export default function Homepage(){
             }
         }
         loadJobApps();
-
+        setErrorMessage("")
     },[userId])
 
     useEffect(()=>{
@@ -150,6 +166,7 @@ export default function Homepage(){
                             Notes {sortField === "notes" && (ascending ? "▲" : "▼")}
                         </th>
                         <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
 
                 </thead>
@@ -402,6 +419,11 @@ export default function Homepage(){
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
+                        </td>
+                        <td>
+                            <Button
+                            onClick={()=> handleDelete(jobapps.jobid)}
+                            >Delete</Button>
                         </td>
                     </tr>
                     )}
