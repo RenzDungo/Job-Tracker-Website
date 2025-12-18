@@ -20,7 +20,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "C:/docker-data/jobapp-postgres:/var/lib/postgresql/data"
+      - dbVol:/var/lib/postgresql/data
 
   frontend:
     build: ./frontend
