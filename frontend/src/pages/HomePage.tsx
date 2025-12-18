@@ -202,18 +202,18 @@ export default function Homepage(){
                         </td>
                         <td>
                             <Dropdown>
-                                <Dropdown.Toggle id="dropdown-basic">
+                                <Dropdown.Toggle variant="" id="dropdown-basic">
                                     {jobapps.status}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                <Dropdown.Item
+                                <Dropdown.Item 
                                 onClick={()=>{
                                     handleChange(jobapps.jobid,"status","Pending");
                                 }}
                                 >
                                     Pending
                                 </Dropdown.Item>
-                                <Dropdown.Item
+                                <Dropdown.Item 
                                 onClick={()=>{
                                     handleChange(jobapps.jobid,"status","Accepted");
                                 }}

@@ -41,8 +41,9 @@ export default function LoginPage({setPage}: LoginPageProps){
             if (!res.ok) {
                 // API returned an error (400, 409, 500, etc.)
                 setErrorMessage(data.error || "Failed to create account");
-                return;
+                return false;
             }
+            return true;
         } catch(err) {
             setErrorMessage("Unable to connect to server. Please try again.");
             return
@@ -53,7 +54,12 @@ export default function LoginPage({setPage}: LoginPageProps){
             {registered === false && 
                 <Stack gap={3}>
                     <Card bg='dark' className='text-white' style={{}}>
-                        <Form style={{padding:"10px"}}>
+                        <Form 
+                        onSubmit={(e) => {
+                            e.preventDefault(); // 🚨 stops page reload
+                            handleUserLogin(useremail, userpassword);
+                        }}
+                        style={{padding:"10px"}}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control 
@@ -73,7 +79,7 @@ export default function LoginPage({setPage}: LoginPageProps){
                                 onChange={(e)=>setUserPassword(e.target.value)}
                                 />
                             </Form.Group>
-                            <Button variant="primary" onClick={()=> handleUserLogin(useremail,userpassword)}>
+                            <Button variant="primary" type="submit">
                                 Login
                             </Button>
                             <Form.Group>
@@ -111,11 +117,12 @@ export default function LoginPage({setPage}: LoginPageProps){
                                 />
                             </Form.Group>
                             <Button variant="primary" 
-                            onClick={()=> {
-                                handleUserRegister(useremail,userpassword); if (errormessage.length === 0) 
-                                {setRegistered(false)}
-                                }
-                            }>
+                            onClick={
+                                async () => {
+                                    const success = await handleUserRegister(useremail, userpassword);
+                                    if (success) setRegistered(false);
+                            }}
+                            >
                                 Register
                             </Button>
                         </Form>
