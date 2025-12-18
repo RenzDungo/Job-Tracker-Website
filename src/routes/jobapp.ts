@@ -90,9 +90,6 @@ jobapprouter.delete("/remove/:id/user/:userid", async(req,res)=>{
             `,
             [id, userid]
         )
-        if (result.rows.length === 0) {
-         return res.status(404).json({ error: "Job application not found" });
-        }
         return res.status(200).json({
             message: "Job application deleted successfully",
             deleted: result.rows[0]
