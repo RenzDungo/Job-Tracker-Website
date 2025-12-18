@@ -6,7 +6,7 @@ jobapprouter.post("/create/user/:id", async(req,res)=> {
     const {name, position, status, link, platform, salary, notes, month, day, year} = req.body
     const {id} = req.params;
 
-    if (!name || !position || !status || !link || !platform || !salary || !notes){
+    if (!name || !position || !status || !link || !platform){
         return res.status(400).json({error:"Missing required fields"})
     }
     const today = new Date();
