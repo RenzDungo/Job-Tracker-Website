@@ -79,9 +79,9 @@ jobapprouter.get("/user/:id", async(req,res)=>{
     }
 })
 
-jobapprouter.delete("/remove/jobapp/:id", async(req,res)=>{
-    const {id} = req.params;
-    const {userid} =req.body;
+jobapprouter.delete("/remove/jobapp/:id/user/:userid", async(req,res)=>{
+    const {id, userid} = req.params;
+    
     try{
         const result = await pool.query(
             `
