@@ -79,7 +79,7 @@ jobapprouter.get("/user/:id", async(req,res)=>{
     }
 })
 
-jobapprouter.delete("/remove/jobapp/:id/user/:userid", async(req,res)=>{
+jobapprouter.delete("/remove/:id/user/:userid", async(req,res)=>{
     const {id, userid} = req.params;
     
     try{
